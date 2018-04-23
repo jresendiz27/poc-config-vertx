@@ -29,6 +29,7 @@ dependencies {
     compile "io.vertx:vertx-core:$vertxVersion"
     compile "io.vertx:vertx-lang-groovy:$vertxVersion"
     compile "io.vertx:vertx-web:$vertxVersion"
+    compile "io.vertx:vertx-hazelcast:$vertxVersion"
 }
 
 mainClassName = "io.vertx.core.Launcher"
@@ -51,7 +52,8 @@ def doOnChange = './gradlew classes'
 
 run {
     systemProperty("vertx.logger-delegate-factory-class-name", "io.vertx.core.logging.SLF4JLogDelegateFactory")
-    args = ['run', mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange"]
+    systemProperty("hazelcast.logging.type", "log4j")
+    args = ['run', mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$mainClassName", "--on-redeploy=$doOnChange", "-cluster"]
 }
 
 task wrapper(type: Wrapper) {

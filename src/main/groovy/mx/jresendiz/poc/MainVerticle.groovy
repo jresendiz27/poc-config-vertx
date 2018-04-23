@@ -11,14 +11,5 @@ class MainVerticle extends AbstractVerticle {
     void start() {
         log.info("Starting verticle")
         log.info("Starting verticle")
-        log.info("Starting verticle")
-        log.info("Starting verticle")
-        log.info("Starting verticle")
-        log.info("Starting verticle")
-        log.info("Starting verticle")
-        log.info("Starting verticle")
-        log.info("Starting verticle")
-        log.info("Starting verticle")
-        log.info("Starting verticle")
     }
 }
