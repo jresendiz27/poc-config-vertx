@@ -166,3 +166,4 @@ nbdist/
 .gradle/
 log/
 .docker-volumes/
+.local-config/
