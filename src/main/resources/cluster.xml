@@ -7,14 +7,13 @@
         <property name="hazelcast.memcache.enabled">false</property>
         <property name="hazelcast.rest.enabled">false</property>
         <property name="hazelcast.wait.seconds.before.join">0</property>
-        <property name="hazelcast.logging.type">slf4j</property>
     </properties>
 
     <group>
-        <name>Nearsoft</name>
-        <password>dev-pass</password>
+        <name>jresendiz</name>
+        <password>pass</password>
     </group>
-    <management-center enabled="false">http://localhost:8080/mancenter</management-center>
+    <management-center enabled="true">http://localhost:8080/mancenter</management-center>
     <network>
         <port auto-increment="true" port-count="10000">5701</port>
         <outbound-ports>
@@ -84,25 +83,7 @@
         -->
         <backup-count>1</backup-count>
     </multimap>
-    <map name="RetailersMap">
-        <backup-count>1</backup-count>
-    </map>
-    <map name="ActiveIntegrations">
-        <backup-count>1</backup-count>
-    </map>
-    <map name="PushFailureMap">
-        <backup-count>1</backup-count>
-    </map>
-    <map name="TokensMap">
-        <backup-count>1</backup-count>
-    </map>
-    <map name="VariantsMap">
-        <backup-count>1</backup-count>
-    </map>
-    <map name="BatchContextName">
-        <backup-count>1</backup-count>
-    </map>
-    <map name="DoNotRepeatBatchItemsIdMap">
+    <map name="VERTICLES_MAP">
         <backup-count>1</backup-count>
     </map>
     <map name="__vertx.haInfo">
