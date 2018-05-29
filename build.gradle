@@ -33,7 +33,7 @@ dependencies {
 
 mainClassName = "io.vertx.core.Launcher"
 def mainVerticleName = "mx.jresendiz.poc.MainVerticle"
-
+def clusterHost = System.getenv("LOCAL_IP")
 
 shadowJar {
     classifier = 'fat'
@@ -50,16 +50,24 @@ def doOnChange = './gradlew classes'
 
 
 run {
+    def baseArgs = ['run', mainVerticleName,
+                    "--redeploy=$watchForChange",
+                    "--launcher-class=$mainClassName",
+                    "--on-redeploy=$doOnChange"]
+
     systemProperty("vertx.logger-delegate-factory-class-name", "io.vertx.core.logging.SLF4JLogDelegateFactory")
-    systemProperty("hazelcast.logging.type", "log4j")
-    systemProperty("hazelcast.config", "src/main/resources/cluster.xml")
-    systemProperty("vertx.cluster.public.host", System.getenv("LOCAL_IP"))
-    args = ['run', mainVerticleName,
-            "-cluster",
-            "-cluster-host$clusterHost",
-            "--redeploy=$watchForChange",
-            "--launcher-class=$mainClassName",
-            "--on-redeploy=$doOnChange"]
+    systemProperty("hazelcast.logging.type", "slf4j")
+
+    if (clusterHost) {
+        systemProperty("hazelcast.config", "/Users/jresendiz/Documents/Personal/poc-config-vertx/src/main/resources/cluster.xml")
+        systemProperty("hazelcast.client.config", "/Users/jresendiz/Documents/Personal/poc-config-vertx/src/main/resources/hazelcast-client.xml")
+        systemProperty("vertx.cluster.public.host", "$clusterHost")
+
+        baseArgs.add("-cluster-host$clusterHost")
+        baseArgs.add("-cluster")
+    }
+
+    args = baseArgs
 }
 
 task wrapper(type: Wrapper) {
